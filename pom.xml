@@ -25,7 +25,7 @@
     <distributionManagement>
         <snapshotRepository>
             <id>digital-compass</id>
-            <url>http://rushpoll.com:8081/nexus/content/repositories/</url>
+            <url>http://rushpoll.com:8081/nexus/content/repositories/max-alpha-database-client</url>
         </snapshotRepository>
     </distributionManagement>
 
