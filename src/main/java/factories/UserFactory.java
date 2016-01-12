@@ -1,4 +1,7 @@
+package factories;
+
 import org.bson.Document;
+import pojos.User;
 
 import java.util.List;
 

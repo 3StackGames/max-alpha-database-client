@@ -1,3 +1,7 @@
+package pojos;
+
+import pojos.Card;
+
 import java.util.List;
 
 public class Deck {

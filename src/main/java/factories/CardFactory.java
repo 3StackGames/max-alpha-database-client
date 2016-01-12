@@ -1,8 +1,11 @@
+package factories;
+
 import org.bson.Document;
+import pojos.Card;
+import pojos.Effect;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class CardFactory {

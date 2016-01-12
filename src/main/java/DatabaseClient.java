@@ -4,7 +4,13 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import factories.CardFactory;
+import factories.DeckFactory;
+import factories.UserFactory;
 import org.bson.Document;
+import pojos.Card;
+import pojos.Deck;
+import pojos.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,6 @@
-import org.bson.Document;
+package pojos;
+
+import pojos.Card;
 
 import java.util.List;
 
