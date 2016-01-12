@@ -21,6 +21,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>digital-compass</id>
+            <url>http://rushpoll.com:8081/nexus/content/repositories/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.mongodb</groupId>

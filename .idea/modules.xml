@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/max-alpha-mongo-client.iml" filepath="$PROJECT_DIR$/max-alpha-mongo-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/max-alpha-database-client.iml" filepath="$PROJECT_DIR$/max-alpha-database-client.iml" />
     </modules>
   </component>
 </project>
