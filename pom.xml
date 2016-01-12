@@ -25,7 +25,7 @@
     <distributionManagement>
         <snapshotRepository>
             <id>max-alpha-database-client</id>
-            <url>http://rushpoll.com:8081/nexus/content/repositories/max-alpha-database-client</url>
+            <url>http://bamboozle.io:8081/nexus/content/repositories/max-alpha-database-client/</url>
         </snapshotRepository>
     </distributionManagement>
 
