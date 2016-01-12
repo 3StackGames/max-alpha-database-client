@@ -1,10 +1,12 @@
 package pojos;
 
+import org.bson.types.ObjectId;
+
 import java.util.List;
 import java.util.Map;
 
 public class Card {
-    protected long id;
+    protected ObjectId id;
     protected String name;
     protected String type;
     protected Map<String, Integer> cost;
@@ -15,7 +17,7 @@ public class Card {
     protected Map<String, List<Effect>> effects;
 
 
-    protected Card(long id, String name, String type, Map<String, Integer> cost, String text, String flavorText, Map<String, List<Effect>> effects) {
+    public Card(ObjectId id, String name, String type, Map<String, Integer> cost, String text, String flavorText, Map<String, List<Effect>> effects) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -25,11 +27,11 @@ public class Card {
         this.effects = effects;
     }
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

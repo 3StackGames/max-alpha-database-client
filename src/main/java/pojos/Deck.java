@@ -1,70 +1,70 @@
 package pojos;
 
-import pojos.Card;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
 public class Deck {
-    protected long id;
-    protected long ownerId;
-    protected List<Long> mainDeckIds;
-    protected List<Long> buildableIds;
+    protected ObjectId id;
+    protected ObjectId ownerId;
+    protected List<ObjectId> mainCardIds;
+    protected List<ObjectId> structureIds;
 
-    protected List<Card> mainDeckCards;
-    protected List<Card> buildableCards;
+    protected List<Card> mainCards;
+    protected List<Card> structureCards;
 
-    protected Deck(long id, long ownerId, List<Long> mainDeckIds, List<Long> buildableIds) {
+    public Deck(ObjectId id, ObjectId ownerId, List<ObjectId> mainCardIds, List<ObjectId> structureIds) {
         this.id = id;
         this.ownerId = ownerId;
-        this.mainDeckIds = mainDeckIds;
-        this.buildableIds = buildableIds;
+        this.mainCardIds = mainCardIds;
+        this.structureIds = structureIds;
     }
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
-    public long getOwnerId() {
+    public ObjectId getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(long ownerId) {
+    public void setOwnerId(ObjectId ownerId) {
         this.ownerId = ownerId;
     }
 
-    public List<Long> getMainDeckIds() {
-        return mainDeckIds;
+    public List<ObjectId> getMainCardIds() {
+        return mainCardIds;
     }
 
-    public void setMainDeckIds(List<Long> mainDeckIds) {
-        this.mainDeckIds = mainDeckIds;
+    public void setMainCardIds(List<ObjectId> mainCardIds) {
+        this.mainCardIds = mainCardIds;
     }
 
-    public List<Long> getBuildableIds() {
-        return buildableIds;
+    public List<ObjectId> getStructureIds() {
+        return structureIds;
     }
 
-    public void setBuildableIds(List<Long> buildableIds) {
-        this.buildableIds = buildableIds;
+    public void setStructureIds(List<ObjectId> structureIds) {
+        this.structureIds = structureIds;
     }
 
-    public List<Card> getMainDeckCards() {
-        return mainDeckCards;
+    public List<Card> getMainCards() {
+        return mainCards;
     }
 
-    public void setMainDeckCards(List<Card> mainDeckCards) {
-        this.mainDeckCards = mainDeckCards;
+    public void setMainCards(List<Card> mainCards) {
+        this.mainCards = mainCards;
     }
 
-    public List<Card> getBuildableCards() {
-        return buildableCards;
+    public List<Card> getStructureCards() {
+        return structureCards;
     }
 
-    public void setBuildableCards(List<Card> buildableCards) {
-        this.buildableCards = buildableCards;
+    public void setStructureCards(List<Card> structureCards) {
+        this.structureCards = structureCards;
     }
 }

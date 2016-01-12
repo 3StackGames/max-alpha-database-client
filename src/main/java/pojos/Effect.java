@@ -1,35 +1,39 @@
 package pojos;
 
+import java.util.List;
+
 public class Effect {
-    protected String check;
-    protected String result;
-    protected Object value;
+    protected List<String> checks;
+    protected List<String> results;
+    protected List<Object> values;
 
-    protected Effect() {
-
+    public Effect(List<String> checks, List<String> results, List<Object> values) {
+        this.checks = checks;
+        this.results = results;
+        this.values = values;
     }
 
-    public String getCheck() {
-        return check;
+    public List<String> getChecks() {
+        return checks;
     }
 
-    public void setCheck(String check) {
-        this.check = check;
+    public void setChecks(List<String> checks) {
+        this.checks = checks;
     }
 
-    public String getResult() {
-        return result;
+    public List<String> getResults() {
+        return results;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setResults(List<String> results) {
+        this.results = results;
     }
 
-    public Object getValue() {
-        return value;
+    public List<Object> getValues() {
+        return values;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
+    public void setValues(List<Object> values) {
+        this.values = values;
     }
 }

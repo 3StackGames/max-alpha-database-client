@@ -1,24 +1,24 @@
 package pojos;
 
-import pojos.Card;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
 public class User {
-    protected long id;
+    protected ObjectId id;
     protected String username;
-    protected List<Long> cardIds;
+    protected List<ObjectId> cardIds;
     protected List<Card> cards;
 
-    protected User() {
+    public User() {
 
     }
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -30,11 +30,11 @@ public class User {
         this.username = username;
     }
 
-    public List<Long> getCardIds() {
+    public List<ObjectId> getCardIds() {
         return cardIds;
     }
 
-    public void setCardIds(List<Long> cardIds) {
+    public void setCardIds(List<ObjectId> cardIds) {
         this.cardIds = cardIds;
     }
 
