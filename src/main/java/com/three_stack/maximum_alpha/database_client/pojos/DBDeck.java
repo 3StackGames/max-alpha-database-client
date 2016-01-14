@@ -1,19 +1,19 @@
-package pojos;
+package com.three_stack.maximum_alpha.database_client.pojos;
 
 import org.bson.types.ObjectId;
 
 import java.util.List;
 
-public class Deck {
+public class DBDeck {
     protected ObjectId id;
     protected ObjectId ownerId;
     protected List<ObjectId> mainCardIds;
     protected List<ObjectId> structureIds;
 
-    protected List<Card> mainCards;
-    protected List<Card> structureCards;
+    protected List<DBCard> mainCards;
+    protected List<DBCard> structureCards;
 
-    public Deck(ObjectId id, ObjectId ownerId, List<ObjectId> mainCardIds, List<ObjectId> structureIds) {
+    public DBDeck(ObjectId id, ObjectId ownerId, List<ObjectId> mainCardIds, List<ObjectId> structureIds) {
         this.id = id;
         this.ownerId = ownerId;
         this.mainCardIds = mainCardIds;
@@ -52,19 +52,19 @@ public class Deck {
         this.structureIds = structureIds;
     }
 
-    public List<Card> getMainCards() {
+    public List<DBCard> getMainCards() {
         return mainCards;
     }
 
-    public void setMainCards(List<Card> mainCards) {
+    public void setMainCards(List<DBCard> mainCards) {
         this.mainCards = mainCards;
     }
 
-    public List<Card> getStructureCards() {
+    public List<DBCard> getStructureCards() {
         return structureCards;
     }
 
-    public void setStructureCards(List<Card> structureCards) {
+    public void setStructureCards(List<DBCard> structureCards) {
         this.structureCards = structureCards;
     }
 }

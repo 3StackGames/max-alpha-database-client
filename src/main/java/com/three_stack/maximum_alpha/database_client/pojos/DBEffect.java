@@ -1,13 +1,13 @@
-package pojos;
+package com.three_stack.maximum_alpha.database_client.pojos;
 
 import java.util.List;
 
-public class Effect {
+public class DBEffect {
     protected List<String> checks;
     protected List<String> results;
     protected List<Object> values;
 
-    public Effect(List<String> checks, List<String> results, List<Object> values) {
+    public DBEffect(List<String> checks, List<String> results, List<Object> values) {
         this.checks = checks;
         this.results = results;
         this.values = values;

@@ -1,11 +1,11 @@
-package pojos;
+package com.three_stack.maximum_alpha.database_client.pojos;
 
 import org.bson.types.ObjectId;
 
 import java.util.List;
 import java.util.Map;
 
-public class Card {
+public class DBCard {
     protected ObjectId id;
     protected String name;
     protected String type;
@@ -14,10 +14,10 @@ public class Card {
     protected String flavorText;
     protected int health;
     protected int attack;
-    protected Map<String, List<Effect>> effects;
+    protected Map<String, List<DBEffect>> effects;
 
 
-    public Card(ObjectId id, String name, String type, Map<String, Integer> cost, String text, String flavorText, Map<String, List<Effect>> effects) {
+    public DBCard(ObjectId id, String name, String type, Map<String, Integer> cost, String text, String flavorText, Map<String, List<DBEffect>> effects) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -91,11 +91,11 @@ public class Card {
         this.attack = attack;
     }
 
-    public Map<String, List<Effect>> getEffects() {
+    public Map<String, List<DBEffect>> getEffects() {
         return effects;
     }
 
-    public void setEffects(Map<String, List<Effect>> effects) {
+    public void setEffects(Map<String, List<DBEffect>> effects) {
         this.effects = effects;
     }
 }

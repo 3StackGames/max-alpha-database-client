@@ -1,10 +1,12 @@
+package com.three_stack.maximum_alpha.database_client;
+
+import com.three_stack.maximum_alpha.database_client.pojos.DBCard;
+import com.three_stack.maximum_alpha.database_client.pojos.DBDeck;
+import com.three_stack.maximum_alpha.database_client.pojos.DBEffect;
+import com.three_stack.maximum_alpha.database_client.pojos.DBUser;
 import org.apache.commons.lang.Validate;
 import org.bson.types.ObjectId;
 import org.junit.Test;
-import pojos.Card;
-import pojos.Deck;
-import pojos.Effect;
-import pojos.User;
 
 import java.util.List;
 import java.util.Map;
@@ -25,38 +27,38 @@ public class DatabaseClientTests {
 
     @Test
     public void test_getUser_shouldReturnUser() throws Exception {
-        User user = client.getUser(userId);
+        DBUser user = client.getUser(userId);
         Validate.notNull(user);
         Validate.notNull(user.getId());
     }
 
     @Test
     public void test_getUserWithCards_shouldReturnUserWithCards() throws Exception {
-        User user = client.getUserWithCards(userId);
-        List<Card> cards = user.getCards();
+        DBUser user = client.getUserWithCards(userId);
+        List<DBCard> cards = user.getCards();
         Validate.notEmpty(cards);
-        Card card = cards.get(0);
+        DBCard card = cards.get(0);
         Validate.notNull(card);
         Validate.notNull(card.getId());
     }
 
     @Test
     public void test_getDeck_shouldReturnDeck() throws Exception {
-        Deck deck = client.getDeck(deckId);
+        DBDeck deck = client.getDeck(deckId);
         Validate.notNull(deck);
         Validate.notNull(deck.getId());
     }
 
     @Test
     public void test_getDeckWithCards_shouldReturnDeckWithCards() throws Exception {
-        Deck deck = client.getDeckWithCards(deckId);
-        List<Card> mainCards = deck.getMainCards();
-        List<Card> structures = deck.getStructureCards();
+        DBDeck deck = client.getDeckWithCards(deckId);
+        List<DBCard> mainCards = deck.getMainCards();
+        List<DBCard> structures = deck.getStructureCards();
         Validate.notEmpty(mainCards);
         Validate.notEmpty(structures);
 
-        Card mainDeckCard = mainCards.get(0);
-        Card structureCard = structures.get(0);
+        DBCard mainDeckCard = mainCards.get(0);
+        DBCard structureCard = structures.get(0);
 
         Validate.notNull(mainDeckCard);
         Validate.notNull(mainDeckCard.getId());
@@ -66,14 +68,14 @@ public class DatabaseClientTests {
 
     @Test
     public void test_getCard_shouldReturnCard() throws Exception {
-        Card card = client.getCard(cardId);
+        DBCard card = client.getCard(cardId);
         Validate.notNull(card);
         Validate.notNull(card.getId());
-        Map<String, List<Effect>> effects = card.getEffects();
+        Map<String, List<DBEffect>> effects = card.getEffects();
 
         Validate.notEmpty(effects);
 
-        List<Effect> firstEffects = effects.values().iterator().next();
+        List<DBEffect> firstEffects = effects.values().iterator().next();
         Validate.notEmpty(firstEffects);
         Validate.notNull(firstEffects.get(0));
     }

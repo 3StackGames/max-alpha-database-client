@@ -1,17 +1,18 @@
-package factories;
+package com.three_stack.maximum_alpha.database_client.factories;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import pojos.Card;
-import pojos.Effect;
+import com.three_stack.maximum_alpha.database_client.pojos.DBCard;
+import com.three_stack.maximum_alpha.database_client.pojos.DBEffect;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CardFactory {
     @SuppressWarnings("unchecked")
-    public static Card create(Document cardDocument) {
+    public static DBCard create(Document cardDocument) {
         ObjectId id = cardDocument.getObjectId("_id");
         String name = cardDocument.getString("name");
         String type = cardDocument.getString("type");
@@ -19,7 +20,7 @@ public class CardFactory {
         String text = cardDocument.getString("text");
         String flavorText = cardDocument.getString("flavorText");
         Map<String, List<Document>> effectDocuments = (Map<String, List<Document>>) cardDocument.get("effects");
-        Map<String, List<Effect>> effects = null;
+        Map<String, List<DBEffect>> effects;
         if (effectDocuments != null) {
             effects = effectDocuments.entrySet().stream()
                     .collect(Collectors.toMap(
@@ -27,9 +28,11 @@ public class CardFactory {
                             entry -> entry.getValue().stream()
                                     .map(EffectFactory::create).collect(Collectors.toList())
                     ));
+        } else {
+            effects = new HashMap<>();
         }
 
-        Card card = new Card(id, name, type, cost, text, flavorText, effects);
+        DBCard card = new DBCard(id, name, type, cost, text, flavorText, effects);
 
         //get other attributes
         if (cardDocument.containsKey("health")) {

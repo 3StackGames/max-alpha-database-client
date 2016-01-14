@@ -1,16 +1,16 @@
-package pojos;
+package com.three_stack.maximum_alpha.database_client.pojos;
 
 import org.bson.types.ObjectId;
 
 import java.util.List;
 
-public class User {
+public class DBUser {
     protected ObjectId id;
     protected String username;
     protected List<ObjectId> cardIds;
-    protected List<Card> cards;
+    protected List<DBCard> cards;
 
-    public User() {
+    public DBUser() {
 
     }
 
@@ -38,11 +38,11 @@ public class User {
         this.cardIds = cardIds;
     }
 
-    public List<Card> getCards() {
+    public List<DBCard> getCards() {
         return cards;
     }
 
-    public void setCards(List<Card> cards) {
+    public void setCards(List<DBCard> cards) {
         this.cards = cards;
     }
 }

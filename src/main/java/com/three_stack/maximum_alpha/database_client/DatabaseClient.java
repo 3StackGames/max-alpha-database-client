@@ -1,3 +1,5 @@
+package com.three_stack.maximum_alpha.database_client;
+
 import com.mongodb.Function;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
@@ -5,14 +7,14 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import factories.CardFactory;
-import factories.DeckFactory;
-import factories.UserFactory;
+import com.three_stack.maximum_alpha.database_client.factories.CardFactory;
+import com.three_stack.maximum_alpha.database_client.factories.DeckFactory;
+import com.three_stack.maximum_alpha.database_client.factories.UserFactory;
+import com.three_stack.maximum_alpha.database_client.pojos.DBUser;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import pojos.Card;
-import pojos.Deck;
-import pojos.User;
+import com.three_stack.maximum_alpha.database_client.pojos.DBCard;
+import com.three_stack.maximum_alpha.database_client.pojos.DBDeck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,36 +32,52 @@ public class DatabaseClient {
         database = client.getDatabase(contentDatabase);
     }
 
-    public User getUser(ObjectId id) {
+    public DBUser getUser(String id) {
+        return getUser(o(id));
+    }
+
+    public DBUser getUser(ObjectId id) {
         Document userDocument = findUserDocumentById(id);
         System.out.println(getUserCollection().count());
         return UserFactory.create(userDocument);
     }
 
-    public User getUserWithCards(ObjectId id) {
-        Document userDocument = findUserDocumentById(id);
-        User user = UserFactory.create(userDocument);
+    public DBUser getUserWithCards(String id) {
+        return getUserWithCards(o(id));
+    }
 
-        List<Card> cards = findAndConvertList(user.getCardIds(), getCardCollection(), CardFactory::create);
+    public DBUser getUserWithCards(ObjectId id) {
+        Document userDocument = findUserDocumentById(id);
+        DBUser user = UserFactory.create(userDocument);
+
+        List<DBCard> cards = findAndConvertList(user.getCardIds(), getCardCollection(), CardFactory::create);
         user.setCards(cards);
 
         return user;
     }
 
-    public Deck getDeck(ObjectId id) {
+    public DBDeck getDeck(String id) {
+        return getDeck(o(id));
+    }
+
+    public DBDeck getDeck(ObjectId id) {
         Document deck = findDeckDocumentById(id);
         return DeckFactory.create(deck);
     }
 
-    public Deck getDeckWithCards(ObjectId id) {
+    public DBDeck getDeckWithCards(String id) {
+        return getDeckWithCards(o(id));
+    }
+
+    public DBDeck getDeckWithCards(ObjectId id) {
         Document deckDocument = findDeckDocumentById(id);
-        Deck deck = DeckFactory.create(deckDocument);
+        DBDeck deck = DeckFactory.create(deckDocument);
 
 
         MongoCollection<Document> cardCollection = getCardCollection();
 
-        List<Card> mainCards = findAndConvertList(deck.getMainCardIds(), cardCollection, CardFactory::create);
-        List<Card> buildableCards = findAndConvertList(deck.getStructureIds(), cardCollection, CardFactory::create);
+        List<DBCard> mainCards = findAndConvertList(deck.getMainCardIds(), cardCollection, CardFactory::create);
+        List<DBCard> buildableCards = findAndConvertList(deck.getStructureIds(), cardCollection, CardFactory::create);
 
         deck.setMainCards(mainCards);
         deck.setStructureCards(buildableCards);
@@ -67,10 +85,18 @@ public class DatabaseClient {
         return deck;
     }
 
-    public Card getCard(ObjectId id) {
+    public DBCard getCard(String id) {
+        return getCard(o(id));
+    }
+
+    public DBCard getCard(ObjectId id) {
         MongoCollection<Document> cards = getCardCollection();
         Document card =  cards.find(new Document("_id", id)).first();
         return CardFactory.create(card);
+    }
+
+    private ObjectId o(String id) {
+        return new ObjectId(id);
     }
 
     @SuppressWarnings("unchecked")

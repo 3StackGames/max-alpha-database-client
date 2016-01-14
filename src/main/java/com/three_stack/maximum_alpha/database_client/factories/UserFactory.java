@@ -1,16 +1,16 @@
-package factories;
+package com.three_stack.maximum_alpha.database_client.factories;
 
+import com.three_stack.maximum_alpha.database_client.pojos.DBUser;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import pojos.User;
 
 import java.util.List;
 
 public class UserFactory {
 
     @SuppressWarnings("unchecked")
-    public static User create(Document userDocument) {
-        User user = new User();
+    public static DBUser create(Document userDocument) {
+        DBUser user = new DBUser();
 
         user.setId(userDocument.getObjectId("_id"));
         user.setUsername(userDocument.getString("username"));
