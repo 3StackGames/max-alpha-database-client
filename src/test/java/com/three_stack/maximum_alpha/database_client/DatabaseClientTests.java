@@ -19,7 +19,8 @@ public class DatabaseClientTests {
 
     @org.junit.Before
     public void setUp() throws Exception {
-        client = new DatabaseClient("localhost", 27017, "test", "password", "admin", "max-alpha");
+//        client = new DatabaseClient("localhost", 27017, "test", "password", "admin", "max-alpha");
+        client = new DatabaseClient("107.170.204.106", 27017, "3sd", "apples", "admin", "max-alpha-2");
         userId = new ObjectId("5692c8785874ab801b000001");
         deckId = new ObjectId("568ec4b9bbdcf16c2c000003");
         cardId = new ObjectId("568f777bccd62a580e000002");

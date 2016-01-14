@@ -1,6 +1,5 @@
 package com.three_stack.maximum_alpha.database_client;
 
-import com.mongodb.Function;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -10,11 +9,11 @@ import com.mongodb.client.MongoDatabase;
 import com.three_stack.maximum_alpha.database_client.factories.CardFactory;
 import com.three_stack.maximum_alpha.database_client.factories.DeckFactory;
 import com.three_stack.maximum_alpha.database_client.factories.UserFactory;
+import com.three_stack.maximum_alpha.database_client.pojos.DBCard;
+import com.three_stack.maximum_alpha.database_client.pojos.DBDeck;
 import com.three_stack.maximum_alpha.database_client.pojos.DBUser;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import com.three_stack.maximum_alpha.database_client.pojos.DBCard;
-import com.three_stack.maximum_alpha.database_client.pojos.DBDeck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +49,7 @@ public class DatabaseClient {
         Document userDocument = findUserDocumentById(id);
         DBUser user = UserFactory.create(userDocument);
 
-        List<DBCard> cards = findAndConvertList(user.getCardIds(), getCardCollection(), CardFactory::create);
+        List<DBCard> cards = retrieveCards(user.getCardIds(), getCardCollection());
         user.setCards(cards);
 
         return user;
@@ -76,11 +75,16 @@ public class DatabaseClient {
 
         MongoCollection<Document> cardCollection = getCardCollection();
 
-        List<DBCard> mainCards = findAndConvertList(deck.getMainCardIds(), cardCollection, CardFactory::create);
-        List<DBCard> buildableCards = findAndConvertList(deck.getStructureIds(), cardCollection, CardFactory::create);
+        List<ObjectId> relevantCardIds = new ArrayList<>();
+        relevantCardIds.addAll(deck.getMainCardIds());
+        relevantCardIds.addAll(deck.getStructureIds());
+        List<DBCard> relevantCards = retrieveCards(relevantCardIds, cardCollection);
+
+        List<DBCard> mainCards = populateCardList(relevantCards, deck.getMainCardIds());
+        List<DBCard> structureCards = populateCardList(relevantCards, deck.getStructureIds());
 
         deck.setMainCards(mainCards);
-        deck.setStructureCards(buildableCards);
+        deck.setStructureCards(structureCards);
 
         return deck;
     }
@@ -91,7 +95,7 @@ public class DatabaseClient {
 
     public DBCard getCard(ObjectId id) {
         MongoCollection<Document> cards = getCardCollection();
-        Document card =  cards.find(new Document("_id", id)).first();
+        Document card = cards.find(new Document("_id", id)).first();
         return CardFactory.create(card);
     }
 
@@ -99,12 +103,32 @@ public class DatabaseClient {
         return new ObjectId(id);
     }
 
+    /**
+     * Takes in a list of id's that may contain multiples and populates it with the relevant cards.
+     *
+     * @param relevantCards
+     * @param cardIds
+     * @return
+     */
+    private List<DBCard> populateCardList(List<DBCard> relevantCards, List<ObjectId> cardIds) {
+        return cardIds.stream()
+                .map(cardId -> {
+                    for (DBCard card : relevantCards) {
+                        if (card.getId().equals(cardId)) {
+                            return card;
+                        }
+                    }
+                    throw new IllegalStateException("Card not found");
+                })
+                .collect(Collectors.toList());
+    }
+
     @SuppressWarnings("unchecked")
-    private <T> List<T> findAndConvertList(List<ObjectId> ids, MongoCollection<Document> collection, Function<Document, T> factoryFunction) {
-        Document query = generateIdListQuery(ids);
-        List<T> objects = new ArrayList<>();
-        collection.find(query).map(factoryFunction).forEach((Consumer<? super T>) objects::add);
-        return objects;
+    private List<DBCard> retrieveCards(List<ObjectId> cardIds, MongoCollection<Document> cardCollection) {
+        Document query = generateIdListQuery(cardIds);
+        List<DBCard> cards = new ArrayList<>();
+        cardCollection.find(query).map(CardFactory::create).forEach((Consumer<? super DBCard>) cards::add);
+        return cards;
     }
 
     private Document generateIdListQuery(List<ObjectId> ids) {
@@ -140,7 +164,7 @@ public class DatabaseClient {
     }
 
     private MongoCollection<Document> getCardCollection() {
-        if(cardsCollection != null) {
+        if (cardsCollection != null) {
             return cardsCollection;
         } else {
             cardsCollection = database.getCollection("cards");
@@ -149,7 +173,7 @@ public class DatabaseClient {
     }
 
     private MongoCollection<Document> getDeckCollection() {
-        if(decksCollection != null) {
+        if (decksCollection != null) {
             return decksCollection;
         } else {
             decksCollection = database.getCollection("decks");
@@ -158,7 +182,7 @@ public class DatabaseClient {
     }
 
     private MongoCollection<Document> getUserCollection() {
-        if(usersCollection != null) {
+        if (usersCollection != null) {
             return usersCollection;
         } else {
             usersCollection = database.getCollection("users");

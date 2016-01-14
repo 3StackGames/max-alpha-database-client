@@ -10,7 +10,13 @@ public class DBDeck {
     protected List<ObjectId> mainCardIds;
     protected List<ObjectId> structureIds;
 
+    /**
+     * @Warning: The card pointers aren't guaranteed to point to unique instances of DBCard
+     */
     protected List<DBCard> mainCards;
+    /**
+     * @Warning: The card pointers aren't guaranteed to point to unique instances of DBCard
+     */
     protected List<DBCard> structureCards;
 
     public DBDeck(ObjectId id, ObjectId ownerId, List<ObjectId> mainCardIds, List<ObjectId> structureIds) {
