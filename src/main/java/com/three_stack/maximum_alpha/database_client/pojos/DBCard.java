@@ -2,6 +2,8 @@ package com.three_stack.maximum_alpha.database_client.pojos;
 
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,17 +16,18 @@ public class DBCard {
     protected String flavorText;
     protected int health;
     protected int attack;
-    protected Map<String, List<DBEffect>> effects;
+    protected Map<String, List<DBEffect>> triggerEffects;
+    protected List<DBEffect> effects;
 
-
-    public DBCard(ObjectId id, String name, String type, Map<String, Integer> cost, String text, String flavorText, Map<String, List<DBEffect>> effects) {
+    public DBCard(ObjectId id, String name, String type, Map<String, Integer> cost, String text, String flavorText) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.cost = cost;
         this.text = text;
         this.flavorText = flavorText;
-        this.effects = effects;
+        triggerEffects = new HashMap<>();
+        effects = new ArrayList<>();
     }
 
     public ObjectId getId() {
@@ -91,11 +94,19 @@ public class DBCard {
         this.attack = attack;
     }
 
-    public Map<String, List<DBEffect>> getEffects() {
+    public Map<String, List<DBEffect>> getTriggerEffects() {
+        return triggerEffects;
+    }
+
+    public void setTriggerEffects(Map<String, List<DBEffect>> triggerEffects) {
+        this.triggerEffects = triggerEffects;
+    }
+
+    public List<DBEffect> getEffects() {
         return effects;
     }
 
-    public void setEffects(Map<String, List<DBEffect>> effects) {
+    public void setEffects(List<DBEffect> effects) {
         this.effects = effects;
     }
 }

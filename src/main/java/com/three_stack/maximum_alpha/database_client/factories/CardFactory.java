@@ -19,22 +19,22 @@ public class CardFactory {
         Map<String, Integer> cost = (Map<String, Integer>) cardDocument.get("cost");
         String text = cardDocument.getString("text");
         String flavorText = cardDocument.getString("flavorText");
-        Map<String, List<Document>> effectDocuments = (Map<String, List<Document>>) cardDocument.get("effects");
-        Map<String, List<DBEffect>> effects;
-        if (effectDocuments != null) {
-            effects = effectDocuments.entrySet().stream()
-                    .collect(Collectors.toMap(
-                            Map.Entry::getKey,
-                            entry -> entry.getValue().stream()
-                                    .map(EffectFactory::create).collect(Collectors.toList())
-                    ));
-        } else {
-            effects = new HashMap<>();
+
+        DBCard card = new DBCard(id, name, type, cost, text, flavorText);
+
+        //get optional attributes
+        if(cardDocument.containsKey("triggerEffects")) {
+            Map<String, List<Document>> triggerEffectDocuments = (Map<String, List<Document>>) cardDocument.get("triggerEffects");
+            if (triggerEffectDocuments != null) {
+                Map<String, List<DBEffect>> triggerEffects = triggerEffectDocuments.entrySet().stream()
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey,
+                                entry -> entry.getValue().stream()
+                                        .map(EffectFactory::create).collect(Collectors.toList())
+                        ));
+                card.setTriggerEffects(triggerEffects);
+            }
         }
-
-        DBCard card = new DBCard(id, name, type, cost, text, flavorText, effects);
-
-        //get other attributes
         if (cardDocument.containsKey("health")) {
             int health = cardDocument.getInteger("health");
             card.setHealth(health);
@@ -42,6 +42,13 @@ public class CardFactory {
         if (cardDocument.containsKey("attack")) {
             int attack = cardDocument.getInteger("attack");
             card.setAttack(attack);
+        }
+        if (cardDocument.containsKey("effects")) {
+            List<Document> effectDocuments = (List<Document>) cardDocument.get("effects");
+            List<DBEffect> effects = effectDocuments.stream()
+                    .map(EffectFactory::create)
+                    .collect(Collectors.toList());
+            card.setEffects(effects);
         }
         return card;
     }

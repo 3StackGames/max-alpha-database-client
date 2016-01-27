@@ -15,14 +15,17 @@ public class DatabaseClientTests {
     protected DatabaseClient client;
     protected ObjectId userId;
     protected ObjectId deckId;
-    protected ObjectId cardId;
+    protected ObjectId maliciousWeaponsmithId;
+    protected ObjectId lashTheCreatureId;
 
     @org.junit.Before
     public void setUp() throws Exception {
-        client = new DatabaseClient("localhost", 27017, "test", "password", "admin", "max-alpha");
+//        client = new DatabaseClient("localhost", 27017, "test", "password", "admin", "max-alpha");
+        client = new DatabaseClient("107.170.204.106", 27017, "3sd", "apples", "admin", "max-alpha");
         userId = new ObjectId("5692c8785874ab801b000001");
         deckId = new ObjectId("568ec4b9bbdcf16c2c000003");
-        cardId = new ObjectId("568f777bccd62a580e000002");
+        maliciousWeaponsmithId = new ObjectId("568f777bccd62a580e000002");
+        lashTheCreatureId = new ObjectId("56a8e4c192e2208c15000001");
     }
 
     @Test
@@ -67,16 +70,29 @@ public class DatabaseClientTests {
     }
 
     @Test
-    public void test_getCard_shouldReturnCard() throws Exception {
-        DBCard card = client.getCard(cardId);
-        Validate.notNull(card);
-        Validate.notNull(card.getId());
-        Map<String, List<DBEffect>> effects = card.getEffects();
+    public void test_getCard_shouldReturnCreature() throws Exception {
+        DBCard maliciousWeaponSmith = client.getCard(maliciousWeaponsmithId);
+        Validate.notNull(maliciousWeaponSmith);
+        Validate.notNull(maliciousWeaponSmith.getId());
+        Map<String, List<DBEffect>> triggerEffects = maliciousWeaponSmith.getTriggerEffects();
+
+        Validate.notEmpty(triggerEffects);
+
+        List<DBEffect> firstEffects = triggerEffects.values().iterator().next();
+        Validate.notEmpty(firstEffects);
+        Validate.notNull(firstEffects.get(0));
+    }
+
+    @Test
+    public void test_getCard_shouldReturnSpell() throws Exception {
+        DBCard lashTheCreature = client.getCard(lashTheCreatureId);
+        Validate.notNull(lashTheCreature);
+        Validate.notNull(lashTheCreature.getId());
+        List<DBEffect> effects = lashTheCreature.getEffects();
 
         Validate.notEmpty(effects);
 
-        List<DBEffect> firstEffects = effects.values().iterator().next();
-        Validate.notEmpty(firstEffects);
-        Validate.notNull(firstEffects.get(0));
+        DBEffect firstEffect = effects.get(0);
+        Validate.notNull(firstEffect);
     }
 }
