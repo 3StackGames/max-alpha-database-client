@@ -6,6 +6,7 @@ import org.bson.Document;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EffectFactory {
 
@@ -15,7 +16,9 @@ public class EffectFactory {
             return null;
         }
         List<Map<String, Object>> checks = (List<Map<String, Object>>) effectDocument.get("checks");
-        List<DBResult> results = (List<DBResult>) effectDocument.get("results");
+        List<DBResult> results = ((List<Document>) effectDocument.get("results")).stream()
+                .map(DBResult::new)
+                .collect(Collectors.toList());
         return new DBEffect(checks, results);
     }
 }

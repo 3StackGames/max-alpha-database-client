@@ -25,7 +25,7 @@ public class DatabaseClientTests {
         client = new DatabaseClient("107.170.204.106", 27017, "3sd", "apples", "admin", "max-alpha-2");
         userId = new ObjectId("5692c8785874ab801b000001");
         deckId = new ObjectId("568ec4b9bbdcf16c2c000003");
-        creatureId = new ObjectId("56bcc8958b7edb940a000001");
+        creatureId = new ObjectId("568f777bccd62a580e000002");
         spellId = new ObjectId("56c3774c01a0e11103000002");
         structureId = new ObjectId("568ec276bbdcf16c2c000002");
     }
