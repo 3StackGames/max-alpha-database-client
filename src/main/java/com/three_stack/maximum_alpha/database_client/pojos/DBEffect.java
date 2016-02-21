@@ -1,21 +1,22 @@
 package com.three_stack.maximum_alpha.database_client.pojos;
 
 import java.util.List;
+import java.util.Map;
 
 public class DBEffect {
-    protected List<String> checks;
+    protected List<Map<String, Object>> checks;
     protected List<DBResult> results;
 
-    public DBEffect(List<String> checks, List<DBResult> results) {
+    public DBEffect(List<Map<String, Object>> checks, List<DBResult> results) {
         this.checks = checks;
         this.results = results;
     }
 
-    public List<String> getChecks() {
+    public List<Map<String, Object>> getChecks() {
         return checks;
     }
 
-    public void setChecks(List<String> checks) {
+    public void setChecks(List<Map<String, Object>> checks) {
         this.checks = checks;
     }
 

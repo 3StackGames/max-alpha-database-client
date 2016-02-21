@@ -5,6 +5,7 @@ import com.three_stack.maximum_alpha.database_client.pojos.DBResult;
 import org.bson.Document;
 
 import java.util.List;
+import java.util.Map;
 
 public class EffectFactory {
 
@@ -13,7 +14,7 @@ public class EffectFactory {
         if(effectDocument == null) {
             return null;
         }
-        List<String> checks = (List<String>) effectDocument.get("checks");
+        List<Map<String, Object>> checks = (List<Map<String, Object>>) effectDocument.get("checks");
         List<DBResult> results = (List<DBResult>) effectDocument.get("results");
         return new DBEffect(checks, results);
     }
