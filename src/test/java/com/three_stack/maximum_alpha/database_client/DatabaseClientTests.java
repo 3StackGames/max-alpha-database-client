@@ -17,15 +17,17 @@ public class DatabaseClientTests {
     protected ObjectId deckId;
     protected ObjectId maliciousWeaponsmithId;
     protected ObjectId lashTheCreatureId;
+    protected ObjectId blossomingReefId;
 
     @org.junit.Before
     public void setUp() throws Exception {
 //        client = new DatabaseClient("localhost", 27017, "test", "password", "admin", "max-alpha");
-        client = new DatabaseClient("107.170.204.106", 27017, "3sd", "apples", "admin", "max-alpha");
+        client = new DatabaseClient("107.170.204.106", 27017, "3sd", "apples", "admin", "max-alpha-2");
         userId = new ObjectId("5692c8785874ab801b000001");
         deckId = new ObjectId("568ec4b9bbdcf16c2c000003");
         maliciousWeaponsmithId = new ObjectId("568f777bccd62a580e000002");
         lashTheCreatureId = new ObjectId("56a8e4c192e2208c15000001");
+        blossomingReefId = new ObjectId("568ec276bbdcf16c2c000002");
     }
 
     @Test
@@ -72,15 +74,7 @@ public class DatabaseClientTests {
     @Test
     public void test_getCard_shouldReturnCreature() throws Exception {
         DBCard maliciousWeaponSmith = client.getCard(maliciousWeaponsmithId);
-        Validate.notNull(maliciousWeaponSmith);
-        Validate.notNull(maliciousWeaponSmith.getId());
-        Map<String, List<DBEffect>> triggerEffects = maliciousWeaponSmith.getTriggerEffects();
-
-        Validate.notEmpty(triggerEffects);
-
-        List<DBEffect> firstEffects = triggerEffects.values().iterator().next();
-        Validate.notEmpty(firstEffects);
-        Validate.notNull(firstEffects.get(0));
+        test_hasFirstEffect(maliciousWeaponSmith);
     }
 
     @Test
@@ -94,5 +88,24 @@ public class DatabaseClientTests {
 
         DBEffect firstEffect = effects.get(0);
         Validate.notNull(firstEffect);
+    }
+
+    @Test
+    public void test_getCard_shouldReturnStructure() throws Exception {
+        DBCard blossomingReef = client.getCard(blossomingReefId);
+        test_hasFirstEffect(blossomingReef);
+    }
+
+    private void test_hasFirstEffect(DBCard card) {
+        Validate.notNull(card);
+        Validate.notNull(card.getId());
+
+        Map<String, List<DBEffect>> triggerEffects = card.getTriggerEffects();
+
+        Validate.notEmpty(triggerEffects);
+
+        List<DBEffect> firstEffects = triggerEffects.values().iterator().next();
+        Validate.notEmpty(firstEffects);
+        Validate.notNull(firstEffects.get(0));
     }
 }
