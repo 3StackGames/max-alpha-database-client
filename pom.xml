@@ -6,7 +6,7 @@
 
     <groupId>com.three-stack</groupId>
     <artifactId>max-alpha-database-client</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <build>

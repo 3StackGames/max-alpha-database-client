@@ -4,13 +4,11 @@ import java.util.List;
 
 public class DBEffect {
     protected List<String> checks;
-    protected List<String> results;
-    protected List<Object> values;
+    protected List<DBResult> results;
 
-    public DBEffect(List<String> checks, List<String> results, List<Object> values) {
+    public DBEffect(List<String> checks, List<DBResult> results) {
         this.checks = checks;
         this.results = results;
-        this.values = values;
     }
 
     public List<String> getChecks() {
@@ -21,19 +19,11 @@ public class DBEffect {
         this.checks = checks;
     }
 
-    public List<String> getResults() {
+    public List<DBResult> getResults() {
         return results;
     }
 
-    public void setResults(List<String> results) {
+    public void setResults(List<DBResult> results) {
         this.results = results;
-    }
-
-    public List<Object> getValues() {
-        return values;
-    }
-
-    public void setValues(List<Object> values) {
-        this.values = values;
     }
 }

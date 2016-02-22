@@ -18,6 +18,7 @@ public class DBCard {
     protected int attack;
     protected Map<String, List<DBEffect>> triggerEffects;
     protected List<DBEffect> effects;
+    protected List<DBAbility> abilities;
 
     public DBCard(ObjectId id, String name, String type, Map<String, Integer> cost, String text, String flavorText) {
         this.id = id;
@@ -28,6 +29,7 @@ public class DBCard {
         this.flavorText = flavorText;
         triggerEffects = new HashMap<>();
         effects = new ArrayList<>();
+        abilities = new ArrayList<>();
     }
 
     public ObjectId getId() {
@@ -108,5 +110,13 @@ public class DBCard {
 
     public void setEffects(List<DBEffect> effects) {
         this.effects = effects;
+    }
+
+    public List<DBAbility> getAbilities() {
+        return abilities;
+    }
+
+    public void setAbilities(List<DBAbility> abilities) {
+        this.abilities = abilities;
     }
 }
