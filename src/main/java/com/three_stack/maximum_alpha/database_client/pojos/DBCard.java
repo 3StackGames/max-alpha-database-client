@@ -19,6 +19,8 @@ public class DBCard {
     protected Map<String, List<DBEffect>> triggerEffects;
     protected List<DBEffect> effects;
     protected List<DBAbility> abilities;
+    protected List<DBTag> tags;
+    protected List<String> classes;
 
     public DBCard(ObjectId id, String name, String type, Map<String, Integer> cost, String text, String flavorText) {
         this.id = id;
@@ -118,5 +120,21 @@ public class DBCard {
 
     public void setAbilities(List<DBAbility> abilities) {
         this.abilities = abilities;
+    }
+
+    public List<DBTag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<DBTag> tags) {
+        this.tags = tags;
+    }
+
+    public List<String> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<String> classes) {
+        this.classes = classes;
     }
 }

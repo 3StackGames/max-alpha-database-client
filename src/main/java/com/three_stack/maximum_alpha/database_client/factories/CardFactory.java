@@ -1,6 +1,7 @@
 package com.three_stack.maximum_alpha.database_client.factories;
 
 import com.three_stack.maximum_alpha.database_client.pojos.DBAbility;
+import com.three_stack.maximum_alpha.database_client.pojos.DBTag;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import com.three_stack.maximum_alpha.database_client.pojos.DBCard;
@@ -57,6 +58,17 @@ public class CardFactory {
                     .map(AbilityFactory::create)
                     .collect(Collectors.toList());
             card.setAbilities(abilities);
+        }
+        if (cardDocument.containsKey("tags")) {
+            List<Document> tagDocuments = (List<Document>) cardDocument.get("tags");
+            List<DBTag> tags = tagDocuments.stream()
+                    .map(DBTag::new)
+                    .collect(Collectors.toList());
+            card.setTags(tags);
+        }
+        if (cardDocument.containsKey("classes")) {
+            List<String> classes = (List<String>) cardDocument.get("classes");
+            card.setClasses(classes);
         }
         return card;
     }
