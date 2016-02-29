@@ -3,11 +3,11 @@ package com.three_stack.maximum_alpha.database_client.pojos;
 import org.bson.Document;
 
 public class DBTag {
-    protected String name;
+    protected String type;
     protected Integer value;
 
     public DBTag(Document document) {
-        this.name = document.getString("name");
+        this.type = document.getString("type");
         if(document.containsKey("value")) {
             this.value = document.getInteger("value");
         } else {
@@ -15,21 +15,21 @@ public class DBTag {
         }
     }
 
-    public DBTag(String name, int value) {
-        this.name = name;
+    public DBTag(String type, int value) {
+        this.type = type;
         this.value = value;
     }
 
-    public DBTag(String name) {
-        this.name = name;
+    public DBTag(String type) {
+        this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Integer getValue() {

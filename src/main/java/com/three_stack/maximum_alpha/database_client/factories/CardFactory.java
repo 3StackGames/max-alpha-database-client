@@ -16,7 +16,7 @@ public class CardFactory {
     @SuppressWarnings("unchecked")
     public static DBCard create(Document cardDocument) {
         ObjectId id = cardDocument.getObjectId("_id");
-        String name = cardDocument.getString("name");
+        String name = cardDocument.getString("type");
         String type = cardDocument.getString("type");
         Map<String, Integer> cost = (Map<String, Integer>) cardDocument.get("cost");
         String text = cardDocument.getString("text");
